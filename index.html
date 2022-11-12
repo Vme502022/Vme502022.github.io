@@ -1,8 +1,440 @@
-<p>Hello 大家好</p>
-<p>我是霸都丶傲天，这是我的个人网站。 </p>
-<p>很高兴你来到这里, 你可以在以下的网站找到我</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,
+   initial-scale=1.0,
+   user-scalable=no,
+   minimum-scale=1.0
+   maximum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>VME50</title>
+    <style>
 
-<ul>
-  <li> <a href="https://www.zhihu.com/people/AJLoveChina">知乎</a> </li>
-  <li> <a href="http://hejie.nigeerhuo.com">我的博客(已经不更细了,现在在知乎写文章)</a> </li>
-</ul>
+      /* 核心样式 */
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .home {
+        display: -webkit-flex;
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        height: calc(100vh -60px);
+        font-size: 30px;
+        background-color: #d9d9d9;
+      }
+      .role{
+        position: absolute;
+        opacity: 0; 
+        font-size: 0.17rem;
+        height: 0.3rem;
+        font-family: 'Arial';
+        border-radius: 1rem;
+        text-align: center;
+        left:-0.1rem;
+        
+        padding-top: 0.1rem;
+        background-color: #ED5C25;
+        color:white;
+        display: flex;
+        
+        z-index: 6;
+        transition: .5s ease;
+      }
+      .nomi:hover .role{
+        opacity: 1;
+      }
+      .nomi:hover .member{
+        opacity: 0;
+      }
+      .title {
+        position: absolute;
+        left: 2rem;
+        top: 1rem;
+        width: 3rem;
+        font-family: "Didot";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1rem;
+        line-height: 1.2rem;
+
+        /* or 105px */
+      }
+      .design {
+        width: 100%;
+        background-color: #292a2c;
+        height: 5rem;
+        text-align: center;
+        color: white;
+        font-size: 20px;
+      }
+      .designtitle {
+        font-size: 0.6rem;
+        font-family: "Didot";
+        margin: 0;
+      }
+      .description {
+        font-size: 0.2rem;
+        font-family: "Arial";
+        line-height: 0.3rem;
+        align-items: center;
+        text-align: left;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .select {
+        z-index: 6;
+        position: absolute;
+        height: auto;
+        width: 2rem;
+        left: 2rem;
+        top: 88%;
+      }
+      .img1 {
+        position: absolute;
+        height: auto;
+        width: 3.8rem;
+        left: 8.5rem;
+        top: 40%;
+      }
+      .img2 {
+        position: absolute;
+        height: auto;
+        width: 5.8rem;
+        left: 12.8rem;
+        top: 10%;
+      }
+      .img3 {
+        position: absolute;
+        height: auto;
+        width: 4.3rem;
+        right: 0%;
+        top:20%;
+      } 
+      .logo {
+        position: absolute;
+        left: 2rem;
+        top: 0.8rem;
+        height: auto;
+        width: 0.7rem;
+      }
+
+      .group{
+        flex-wrap: wrap;
+        margin: 8px 0 0 8px;
+        font-size: 0.2rem;
+        font-family: "Arial";
+        width: 6rem;
+        text-align: left;
+        padding-top: 6.5rem;
+        padding-left: 2rem;
+        color:#292A2C;
+        display: flex;
+        align-content: flex-start;
+        display: flex;
+        background-color:#D9D9D9;
+      }
+      .word1{
+        position: absolute;
+        z-index: 3;
+        padding-left: 1.5rem;
+        padding-top: 1.2rem;
+        width: 6rem;
+        font-family: 'Marion';
+        font-style: normal;
+        font-size: 0.4rem;
+        line-height: 0.5rem;
+      }
+      .story1{
+        height: auto;
+        width: 7rem;
+        padding-top: 0.8rem;
+      }
+      .position{
+        z-index: 2;
+        width:12rem;
+        position: absolute;;
+        left: 35%;
+        justify-content:center; 
+      }
+      .time1{
+        position: absolute;
+        z-index: 3;
+        padding-left: 1.5rem;
+        padding-top: 3.2rem;
+        font-family: 'Arial';
+        font-style: normal;
+        font-size: 0.2rem;
+        color: rgba(41, 42, 44, 0.75);
+      }
+      .arrow{
+        position: absolute;
+        height: auto;
+        width: 0.4rem;
+        padding-top: 1.5rem;
+        right: 1.5rem;
+      }
+      .viz-1{
+        margin:0;
+        width:100%;
+        height:6rem;
+        border: 0;
+      }
+      .words{
+        position:absolute;
+        font-family: 'Arial';
+        font-style: normal;
+        font-size: 0.20rem;
+        color: rgba(41, 42, 44, 0.75);
+        line-height: 120%;
+      }
+      .overlay{
+        opacity: 0;
+        width:3.6rem;
+        z-index: 4;
+        position:absolute;
+        right:1rem;
+        padding-top: 2rem;
+        transition: .5s ease;
+      }
+      .position:hover .overlay{
+        opacity: 1;
+      }
+      .nomi{
+        position: absolute;  
+        width: 0.1rem;
+        height: 3rem;
+        padding-top: 5rem;
+        justify-content:center; 
+      }
+      .member{
+        opacity: 1;
+        z-index: 2;
+        position: absolute;
+        font-size: 0.2rem;
+        width: 1rem;
+        padding-left: 0.2rem;
+        font-family: 'Arial';
+        font-style: italic;
+        color:black;
+        display: flex;
+        
+      }
+      .contact{
+        font-size:1rem;
+        text-align: center;
+      }
+      .email{
+        width:0.4rem;
+        height: auto;
+      }
+      .card-flip{
+        left: 50%;
+        z-index: 3;
+        height: 0.4rem;;
+        width: 0.4rem;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: 1s;
+      }
+      .front,.back{
+        width: 0.4rem;
+        height: 0.4rem;
+        position: absolute;
+        backface-visibility: hidden;
+      }
+      .back{
+        transform: rotateY(180deg);
+      }
+      .card-flip:hover {
+        transform: rotateY(180deg);
+      }
+      .slide{
+        z-index: 6;
+        position: absolute;
+        height: 1rem;
+        width: 1rem;
+        border-radius: 12rem;
+        border: 0;
+        margin-top: -0.5rem;
+        background-color: #ED5C25;
+      }
+      .changetowhite{
+       
+        animation: changecolor 100ms 0.5;
+        animation-fill-mode: forwards;
+      }
+      .box{
+        padding-top: -20px;
+
+      }
+      @keyframes changecolor{
+        from{color:#D9D9D9;}
+        to{color:black;}
+      }
+      .group span{
+        color: #D9D9D9;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="divContent" class="home">
+      <img class="logo" src="img/logo.png" />
+      <div class="nomi" style="left: 2rem;">
+        <div class="role"style="top: 4.7rem;padding-left: 0.2rem; width: 1.2rem;">Programmer</div>
+        <div class="member"style="top: 4.8rem;"> NOMI </div>
+        <img style="width:1rem; height:auto; padding-top:0.2rem;" src="img/nomi.png">
+      </div>
+      <div class="nomi" style="left: 3.4rem;">
+        <div class="role"style="top: 4.7rem;padding-left: 0.4rem; width: 1rem;">Planner</div>
+        <div class="member"style="top: 4.8rem;"> RELIEY </div>
+        <img style="width:1rem; height:auto;padding-top:0.2rem;" src="img/reliey.png">
+      </div>
+      <div class="nomi" style="left: 4.8rem;">
+        <div class="role"style="top: 4.7rem;padding-left: 0.5rem; width: 1rem;">Writer</div>
+        <div class="member" style="top: 4.8rem;"> MAX </div>
+        <img style="width:1rem; height:auto;padding-top:0.2rem;" src="img/MAX.png">
+      </div>
+      <div class="nomi" style="left: 6.2rem;">
+        <div class="role"style="top: 4.7rem;padding-left: 0.4rem; width: 1rem;">Designer</div>
+        <div class="member"style="top: 4.8rem;" > ROSE </div>
+        <img style="width:1rem; height:auto;padding-top:0.2rem;" src="img/rose.png">
+      </div>
+      <p class="title">Data Visualization</p>
+      <div id="divType" class="group">We are VME50- A united, tacit and efficient team. Our team is not   only technically at the forefront of the UI industry, but also puts the user's visual and interactive experience in the most important         position. We believe that data visualization can help to better          analyze data, perfectly combine technology and art, and use           graphical means to convey and communicate information clearly     and effectively.
+
+      </div>
+        <div class="select">
+          <a href="#button"> <img style="width:1.5rem;height:auto" src="img/button.png"></a>
+          <!-- <div class="slide"></div> -->
+        </div>
+        <img class="img1" src="img/img2.png" />
+        <img class="img2" src="img/img3.png" />
+        <img class="img3" src="img/img1.png" />
+      </p>
+    </div>
+
+    <div id="button" class="design">
+      <br/><br/>
+      <p class="designtitle">Design Motivation</p>
+      <br />
+      <p class="description">
+        In learning and designing for data visualisation, we have found that well-designed data visualisation can tell a story by effectively removing noise from the data and highlighting valuable information. Edward R, a pioneer in data visualisation, believes that "graphic excellence is about providing the viewer with the most ideas in the shortest amount of time, in the smallest amount of space with the least amount of ink." The way data visualisations are designed is therefore very important to achieve this goal.
+        After reflecting on the feedback from three data visualisation presentations, our group agreed that the most important thing for data visualisation is to present the information clearly and visually to the audience. This meant choosing the right type of visualisation and making a trade-off between 'aesthetic design' and 'data presentation'. At the same time, we want the viewer to understand what they see quickly, so we should ensure that the data is logically presented and grouped. The choice of colours was also an important part of the design, and our team tried to choose colours that were relevant to the subject matter of the data and to keep the colours consistent across all the charts. This helps the viewer to immerse and understand our story more smoothly. Finally, we add appropriate annotations and baselines to our visualisations, which help highlight the contrasts we want to highlight in the data and help make it easier to determine the relationship between the different elements in the light.
+    </div>
+
+    <div  class="viz-1" style="margin-top: 0.2rem;"> 
+      <a href="viz1/viz1.html"><img class="arrow" src="img/arrow.png"></a>
+        <div class="word1">The Dark Side of the Family: Christmas spike in domestic violence and sexual offences on New Year's Eve</div>
+      <p class="time1">September 2022</p>
+    
+     <div class="position">
+      <div class="overlay">
+        <div class="words">The Dark Side of the Family: Christmas spike in domestic violence and sexual offences on New Year's Eve The Dark Side of the Family: Christmas spike in domestic violence and sexual offences on New Year's Eve The Dark Side of the Family: Christmas spike in domestic violence and sexual offences on New Year's Eve</div>
+      </div>
+      <img class="story1"src="img/viz1.png">
+  </div>
+    </div>
+
+    <hr style="margin-left: 1.5em; margin-right: 1.5rem; margin-top:0.2rem; margin-bottom:0;">
+    <div  class="viz-1"> 
+     <a href="viz2/chart_example_from_d3-graph-gallery.html"> <img class="arrow" src="img/arrow.png"></a>
+        <div class="word1">Views on Transgender Communities in 22 Countries</div>
+      <p class="time1">October 2022</p>
+    
+     <div class="position">
+      <div class="overlay">
+        <div class="words">Attitudes and support for transgender groups vary from country to country in each of the 22 countries. However, the countries that share the view are geographically concentrated.</div>
+      </div>
+      <img class="story1"src="img/viz2.png">
+  </div>
+    </div>
+
+    <hr style="margin-left: 1.5em; margin-right: 1.5rem; margin-top:0.2rem; margin-bottom:0;">
+
+    <div  class="viz-1"> 
+      <a href="viz3/index.html"><img class="arrow" src="img/arrow.png"></a>
+        <div class="word1">From Dollars to Years: Why Life Expectancy is Shorter in the U.S.</div>
+      <p class="time1">November 2022</p>
+    
+     <div class="position">
+      <div class="overlay">
+        <div class="words">With advances in technology and medical care the average life expectancy worldwide is on a marked upward trend. However, the United States, the country that spends the highest percentage of its GDP on health care, has the lowest average life expectancy of the 22 OECD countries.</div>
+      </div>
+      <img class="story1"src="img/viz3.png">
+  </div>
+    </div>
+    <hr style="margin-left: 3em; margin-right: 3rem; margin-top:1rem; margin-bottom:0;">
+    <div class="contact">
+      <div class="card-flip">
+        <div class="back"><a href="mailto:vme50_2022@outlook.com"><img style="width: 0.5rem; height: 0.5 rem;"class=email src="img/send.png"> </a> 
+        </div>
+        <div class="front"><img class=email src="img/email.png"></div>
+      </div>
+      <P style="font-size:20px;margin-top:80px;margin-bottom:50px">© VME50 2022. All rights reserved</P>
+    </div>
+
+
+
+  </body>
+  <script type="text/javascript">
+    window.onload = windowHeight;
+    function windowHeight() {
+      var h = document.documentElement.clientHeight;
+      var bodyHeight = document.getElementById("divContent");
+      bodyHeight.style.height = h + "px";
+    }
+    setInterval(windowHeight, 500);
+
+    function setRem() {
+      console.log("非移动设备");
+
+      baseSize = 16;
+      let baseApp = baseSize / 375;
+      let vW = window.innerWidth;
+      let vH = window.innerHeight;
+
+      let dueH = vW / 375;
+      if (vH < dueH) {
+        vW = vH / 667;
+      }
+      let rem = vW * baseApp;
+      document.documentElement.style.fontSize = rem + "px";
+    }
+    setRem();
+    window.onresize = function () {
+      setRem();
+
+    };
+    var text = document.getElementById("divType").innerHTML
+    text = text.replace(/<div><\/div>/g,"\n");
+    text = text.replace(/<div>/g,"\n");
+    text = text.replace(/<\/div>/g,"\n");	
+    text = text.replace(/<br>/g,"\n");
+    var aElm = [], aText =  text.split("")	  
+    aText.forEach((char)=>{
+      if(char==="\n"){
+       aElm.push("<span style='flex-basis: 120%; height:0rem;'></span>") 
+      }
+      else{
+        aElm.push("<span class='box'>"+char.replace(/\s/g,"&nbsp;")+"</span>")
+      }
+    })
+    document.getElementById("divType").innerHTML = aElm.join("")
+    var boxes = document.querySelectorAll(".box"),index = 0
+    const hndTyping = setInterval(()=>{
+      if(index > boxes.length - 1){
+        clearInterval(hndTyping)
+        return
+      }			  
+      boxes[index].classList.add("changetowhite")
+      index += 1
+    },10)
+  </script>
+</html>
