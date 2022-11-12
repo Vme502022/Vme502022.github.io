@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>9301 Assignment3</title>
+  <meta name="author" content="Matthew Howell" />
+  <meta name="description" content="fullPage continuous scrolling demo." />
+  <meta name="keywords" content="fullpage,jquery,demo,scroll,loop,continuous" />
+  <meta name="Resource-type" content="Document" />
+  <link rel="stylesheet" type="text/css" href="dist/fullpage.css" />
+  <link rel="stylesheet" type="text/css" href="examples.css" />
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+  <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+  <!-- Create a div where the graph will take place -->
+
+  <style>
+    /* Overwriting styles for navigation bullets
+	* --------------------------------------- */
+    #fp-nav ul li a span,
+    .fp-slidesNav ul li a span {
+      background: #587fec;
+    }
+
+    .container {
+      height: 100%;
+      width: 100%;
+    }
+
+    .axis--x path {
+      display: none;
+    }
+
+    .line {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 1.5px;
+    }
+
+    .storyword {
+      font-family: 'Inter';
+      font-style: normal;
+      color: black;
+      font-size: 16px;
+      line-height: 166.02%;
+      margin-left: 200px;
+      margin-right: 200px;
+      margin-top: 10px;
+      text-align: left;
+    }
+
+    .title {
+      position: absolute;
+      right: 10%;
+      top: 10%;
+      font-family: "Impact";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 50px;
+      line-height: 45px;
+      /* or 196% */
+      display: flex;
+      align-items: right;
+      text-align: right;
+      letter-spacing: 0.05em;
+
+      color: #424242;
+    }
+
+    .storytitle {
+      top: 6%;
+      font-size: 34px;
+      font-family: 'Times New Roman', Times, serif;
+      color: black
+    }
+
+    .title2 {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      margin: 0 0 0 -300px;
+      width: 600px;
+      height: 90px;
+      font-family: "Marion";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 40px;
+      /* or 125% */
+      text-align: center;
+      letter-spacing: 0.01em;
+      color: #141414;
+    }
+
+    .subtitle {
+      position: absolute;
+      right: 10%;
+      top: 16%;
+      font-family: "Arial";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 45px;
+      /* or 196% */
+      display: flex;
+      align-items: right;
+      text-align: right;
+      letter-spacing: 0.05em;
+
+      color: #424242;
+    }
+
+    .subtitle2 {
+      position: absolute;
+      right: 10%;
+      top: 20%;
+      font-family: "Arial";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 45px;
+      /* or 107% */
+      display: flex;
+      align-items: center;
+      text-align: right;
+      letter-spacing: 0.05em;
+      color: #424242;
+    }
+
+    .bar {
+      position: absolute;
+      right: 10%;
+      top: 26%;
+      width: 26%;
+      height: 1.5%;
+      background: linear-gradient(90deg,
+          #092e72 0%,
+          #4da2e5 57.83%,
+          #d8e7f5 102.81%);
+      border-radius: 12px;
+      transform: rotate(-180deg);
+    }
+
+    .span {
+      position: absolute;
+      right: 10%;
+      top: 29%;
+      font-family: "Arial";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 8px;
+      line-height: 11px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #727272;
+    }
+
+    .title1 {
+      position: absolute;
+      width: 886px;
+      height: 89px;
+      left: 30%;
+      top: 40%;
+      font-family: "Marion";
+      font-style: normal;
+      font-weight: 400;
+      color: black;
+      font-size: 60px;
+      line-height: 48px;
+    }
+
+    .textsubtitle1 {
+      position: absolute;
+      width: 512px;
+      height: 49px;
+      left: 30%;
+      top: 50%;
+
+      font-family: "Marion";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 24px;
+      /* or 102% */
+
+      color: #141414;
+    }
+
+    .special {
+      font-family: "Marion";
+      font-style: italic;
+      /* or 102% */
+      color: #4c76d0;
+    }
+
+    .groupmember {
+      color: black;
+      font-size: 20px;
+      font-family: 'Times New Roman', Times, serif;
+      line-height: 24px;
+
+    }
+    .logo{
+      position: absolute;
+      left: 2%;
+      top: 5%;
+      height: auto;
+      width: 60px;
+  }
+  .feedback{
+    color:black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+text-align: left;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.qa{
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+}
+  </style>
+
+  <!--[if IE]>
+      <script type="text/javascript">
+        var console = { log: function () {} };
+      </script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+  <div id="fullpage">
+    <div class="section" style="background-color: white">
+      <a href="../index.html"><img class="logo" src="../img/logo.png" /></a>
+      <div style="
+            background-image: url(./images/image7.png);
+            transform: scale(0.7, 0.7);
+            position:absolute;
+            left: 60%;
+            top: 70%;
+            width: 205px;
+            height: 50px;
+            margin: 0 0 0 0px;
+          ">
+        <ul id="menu">
+          <li data-menuanchor="secondPage" style="margin-top:13px;margin-left:-10px"><a
+              style="color:black; font-size:20px" href="#secondPage">EXPLORE</a></li>
+        </ul>
+      </div>
+      <div style="
+            position:absolute;
+            background-image: url(images/image5.png);
+            transform: scale(0.4, 0.4);
+            left: 10%;
+            top: 13%;
+            width: 600px;
+            height: 600px;
+            margin: 0 0 0 0px;
+          "></div>
+      <p class="title1" style=" text-align: left;">FROM DOLLARS TO YEARS</p>
+      <p class="textsubtitle1" style="  text-align: left;">
+        Data reveals why U.S. life expectancy is lower than most
+        <b class="special">OECD</b> developed countries</p>
+
+      <div style="position:absolute;
+          left: 0%;
+          top: 65%;
+          transform: scale(1.2, 1.2);
+          width: 2200px;
+          height: 24px;
+          margin: 0 0 0 0px;
+          background-image:url(images/image6.png)"></div>
+      </p>
+      <div>
+      </div>
+    </div>
+
+    <div class="section" style="background-image: url(images/image4.png);">
+      <div style="
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background-color: white;
+            width: 600px;
+            height: 300px;
+            margin: -150px 0 0 -300px;
+            color: black;
+            display: flex;
+            display: -webkit-flex;
+            justify-content: center;
+            align-items: center;
+        ">
+        <p class="p2">
+          The dataset <a style="text-decoration: underline;"
+            href="https://github.com/BuzzFeedNews/2017-05-us-health-care">2017-05-US-HEALTH-CARE </a>collects life
+          expectancy and
+          health/social-related spendings in 24 OECD countries. We found
+          that the U.S. has the highest share of GPD in health-related
+          spending, but the lowest life expectancy of the 22 developed
+          countries. <br />In this data visualisation, we will analyse this
+          phenomenon and speculate on its possible causes
+        </p>
+      </div>
+    </div>
+
+    <div class="section" style="background-color: white; display: flex; align-items: center">
+      <div class="title2" style=" top:15%; left: 50%;">
+        <p>
+          LIFE EXPECTANCY OVER 22 OECD DEVELOPED COUNTRIES</p>
+      </div>
+      <div id="my_dataviz1" style="position:absolute;top:15% ;left:10%;right:10%;"></div>
+    </div>sss
+
+    <div class="section" style="background-color: white">
+
+      <div class="title2">
+        <p>
+          THE COMPARISON OF SPENDING ON HEALTH CARE AND SOCIAL PROGRAMS IN 2014
+        </p>
+      </div>
+      <div id="my_dataviz2" style="position:absolute;top:25% ;left:10%;right:10%;transform: scale(0.8, 0.8);"></div>
+
+    </div>
+    <div class="section" style="background-image: url(images/image2.png);">
+      <p class="title">2014</p>
+      <p class="subtitle">STATE LIFE EXPECTANCY</p>
+      <p class="subtitle2">IN THE US</p>
+      <div class="bar"></div>
+      <p class="span">
+        74.5 75.0 75.5 76.0 76.5 77.0 77.5 78.0 78.5 79.0 79.5 80.0 80.5 81.0
+        81.5 82.0 (years)
+      </p>
+      <div id="usa"></div>
+    </div>
+    <div class="section" style="background-image: url(images/image2.png);">
+      <p class="title">1980-2014, %CHANGE</p>
+      <p class="subtitle">STATE LIFE EXPECTANCY</p>
+      <p class="subtitle2">IN THE US</p>
+      <div class="bar" style="
+            background: linear-gradient(90deg, #1b1b1b 0%, #e3e3e3 102.81%);
+            width: 16%;
+          "></div>
+      <p class="span">
+        3&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp4&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp5&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp6&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp7&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp8&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp9&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp10&nbsp&nbsp(%)
+      </p>
+      <div id="usa2" class="container"></div>
+    </div>
+    <div class="section" style="background-image: url(images/image8.png);">
+      <div
+        style="margin-top: 50px;margin-bottom:50px; margin-left:150px;margin-right:150px; background-color:white; opacity:0.85">
+        <br><br><br>
+        <p class="storytitle">Visual Story</p><br><br><br>
+        <p class="storyword">
+          An analysis of data on life expectancy in 22 developed OECD countries from 1960 to 2014 shows a clear upward
+          trend in average life expectancy worldwide. However, it is notable that the United States has underperformed
+          in this area, coming in at the bottom of the 22 countries. After background research, we found that social and
+          health spending rates are significantly associated with health outcomes. Considering that the US has been a
+          world leader in healthcare and social construction, we explored the reasons for this strange trend.
+          <br><br>
+          By comparing spending on health and social programs across these 22 countries, we found that the US spends the
+          highest percentage of GDP on health care of any country. At the same time, the US spends almost equal amounts
+          on social and health, well above the countries' average. Since high healthcare spending may crowd out other
+          forms of social spending that support health, this imbalance may contribute to the country's poor health
+          status.
+          <br><br>
+          Meanwhile, to analyse the impact of high healthcare costs within the US, we analysed the average life
+          expectancy of each US state and its growth rate. The two data show strikingly consistent results: life
+          expectancy and growth rates are higher in the northeastern and western regions, but the opposite is true in
+          the three neighbouring states in the south. Historically, many southern states have had a legacy of
+          concentrated poverty and racism and discrimination. According to background research, the lack of affordable
+          health care in some southern states may be one of the reasons for the low percentage change in life expectancy
+          among the local population.
+        </p>
+        <br>
+
+
+        <p class="minititle">
+          Choice of Visual Encoding
+        </p>
+        <p class="storyword">
+          We used the multiple lines graph to show the life expectancy trend for 22 countries from 1960 to 2014, as the
+          line graph gives a clear picture of how the data has changed over time. However, as the data is so large that
+          it can be difficult for users to accurately track the growth trend for a particular country, we have added an
+          interactive effect to the line chart to allow audiances using cursor hover to view the growth lines for
+          individual countries. In addition, when users click the button, a chart with annotations and highlights of the
+          US and Japan helps them understand the topic smoothly.
+          <br><br>
+          To compare both horizontally and vertically the proportion of spending on healthcare and social programmes in
+          each of the 22 countries, we used butterfly chart to visualise the data, which allows the viewer to quickly
+          see the difference between two sets of data with the same parameters. In addition, the user can hover over the
+          bar chart to see the exact values. We also created a button to display the average line and annotations,
+          allowing the user to more visually see the abnormal performance of the US in terms of spending on healthcare
+          and social programs.
+          <br><br>
+          We then analysed life expectancy by the state in the US, extracting the cities with the highest and lowest
+          life expectancy in each state from the dataset to get an average life expectancy value for each state. We also
+          divided the state life expectancy values for 2014 by the state life expectancy values for 1980 to obtain each
+          state's life expectancy growth rate. From the data, we created the Choropleth Heat Map, which displays the
+          life expectancy values for each state on a map of the United States. The Choropleth Heat Map allows the viewer
+          to see the wide range of life expectancy across the US states unobtrusively and clearly. In addition, the top
+          and bottom five states in terms of life expectancy that appear when the button is clicked allow the user to
+          think more specifically about the reasons behind the geographical patterns of life expectancy in each state of
+          the USA.
+        </p>
+        <br>
+        <p class="minititle">
+          Aesthetic Design
+        </p>
+        <p class="storyword">
+          The overall visual style of the website is based on a minimalist design language. Simple graphics and colours
+          convey the seriousness of life and health to the user. The primary colour is the international medical colour
+          scheme blue, representing life and health. Users can also intuitively understand the theme through the home
+          page's heart and the second page's background image.
+          <br><br>
+          We have used the full-page slides model of web design, dividing each page separately to reveal different
+          aspects of the data, and the user needs to scroll up to the next page. After an initial understanding of the
+          data, the user can click on the button to open the annotation, thus providing a comprehensive understanding of
+          the data, and the sequence will be a short and complete story, this way of interaction can provide the user
+          with an immersive data browsing experience.
+          <br><br>
+        </p>
+
+
+        <p class="storyword" style="font-style:italic;   margin-bottom: 60px;">
+
+
+        </p>
+        <p class='groupmember'>
+          <b>Group Members:</b><br><br>
+          Rose Jia: xjia6929_480446875<br>
+          Hengshen Zhang: hzha4311_480406606<br>
+          Ruochen Li: ruli0993_480025876<br>
+          Xinnuo Yu: xiyu0511_510077749</p><br><br><br>
+
+          <div class="feedback">
+            <b><p >Feedback from our client:</p></b>
+                <p class="qa">1: "Group items or maybe cluster them by continents, declutter your data viz"<br>
+                2: "Add borders to the circles on maps. The circle doesn’t tell me anything. It’s unclear and overlapping with each other."<br>
+              </p>
+                <b><p>Key changes:</p></b>
+            <P>1.Since the location distribution of these countries is uneven, and most are European countries, we wanted to find a better way to help users quickly find the country they want. We highlighted the critical countries in the legends below. <br>
+              2.The circles on the maps are replaced with small dots. <br>
+       </P>
+          </div>
+      </div>
+
+
+      
+    </div>
+  </div>
+  
+
+  <script type="text/javascript" src="dist/fullpage.js"></script>
+  <script type="text/javascript" src="js/examples.js"></script>
+  <script type="text/javascript">
+    var myFullpage = new fullpage("#fullpage", {
+      licenseKey: "0HKX8-A6QRK-DIJM8-5QP4J-XMRZL",
+      anchors: ['firstPage', 'secondPage'],
+      navigation: true,
+      showActiveTooltip: true,
+    });
+  </script>
+  <script src="js/map.js"></script>
+  <script src="js/map2.js"></script>
+  <script src="js/tabel1.js"></script>
+  <script src="js/tabel2.js"></script>
+</body>
+
+</html>
